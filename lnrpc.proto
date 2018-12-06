@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+package lnrpc;
+
+service Lightning {
+    /** lncli: `addinvoice`
+    AddInvoice attempts to add a new invoice to the invoice database. Any
+    duplicated invoices are rejected, therefore all invoices *must* have a
+    unique payment preimage.
+    */
+    rpc AddInvoice (Invoice) returns (AddInvoiceResponse);
+}
+
+message HopHint {
+    /// The public key of the node at the start of the channel.
+    string node_id = 1 [json_name = "node_id"];
+
+    /// The unique identifier of the channel.
+    uint64 chan_id = 2 [json_name = "chan_id"];
+
+    /// The base fee of the channel denominated in millisatoshis.
+    uint32 fee_base_msat = 3 [json_name = "fee_base_msat"];
+
+    /**
+    The fee rate of the channel for sending one satoshi across it denominated in
+    millionths of a satoshi.
+    */
+    uint32 fee_proportional_millionths = 4 [json_name = "fee_proportional_millionths"];
+
+    /// The time-lock delta of the channel.
+    uint32 cltv_expiry_delta = 5 [json_name = "cltv_expiry_delta"];
+}
+
+message RouteHint {
+    /**
+    A list of hop hints that when chained together can assist in reaching a
+    specific destination.
+    */
+    repeated HopHint hop_hints = 1 [json_name = "hop_hints"];
+}
+
+message Invoice {
+    /**
+    An optional memo to attach along with the invoice. Used for record keeping
+    purposes for the invoice's creator, and will also be set in the description
+    field of the encoded payment request if the description_hash field is not
+    being used.
+    */
+    string memo = 1 [json_name = "memo"];
+
+    /// An optional cryptographic receipt of payment
+    bytes receipt = 2 [json_name = "receipt"];
+
+    /**
+    The hex-encoded preimage (32 byte) which will allow settling an incoming
+    HTLC payable to this preimage
+    */
+    bytes r_preimage = 3 [json_name = "r_preimage"];
+
+    /// The hash of the preimage
+    bytes r_hash = 4 [json_name = "r_hash"];
+
+    /// The value of this invoice in satoshis
+    int64 value = 5 [json_name = "value"];
+
+    /// Whether this invoice has been fulfilled
+    bool settled = 6 [json_name = "settled"];
+
+    /// When this invoice was created
+    int64 creation_date = 7 [json_name = "creation_date"];
+
+    /// When this invoice was settled
+    int64 settle_date = 8 [json_name = "settle_date"];
+
+    /**
+    A bare-bones invoice for a payment within the Lightning Network.  With the
+    details of the invoice, the sender has all the data necessary to send a
+    payment to the recipient.
+    */
+    string payment_request = 9 [json_name = "payment_request"];
+
+    /**
+    Hash (SHA-256) of a description of the payment. Used if the description of
+    payment (memo) is too long to naturally fit within the description field
+    of an encoded payment request.
+    */
+    bytes description_hash = 10 [json_name = "description_hash"];
+
+    /// Payment request expiry time in seconds. Default is 3600 (1 hour).
+    int64 expiry = 11 [json_name = "expiry"];
+
+    /// Fallback on-chain address.
+    string fallback_addr = 12 [json_name = "fallback_addr"];
+
+    /// Delta to use for the time-lock of the CLTV extended to the final hop.
+    uint64 cltv_expiry = 13 [json_name = "cltv_expiry"];
+
+    /**
+    Route hints that can each be individually used to assist in reaching the
+    invoice's destination.
+    */
+    repeated RouteHint route_hints = 14 [json_name = "route_hints"];
+
+    /// Whether this invoice should include routing hints for private channels.
+    bool private = 15 [json_name = "private"];
+
+    /**
+    The "add" index of this invoice. Each newly created invoice will increment
+    this index making it monotonically increasing. Callers to the
+    SubscribeInvoices call can use this to instantly get notified of all added
+    invoices with an add_index greater than this one.
+    */
+    uint64 add_index = 16 [json_name = "add_index"];
+
+    /**
+    The "settle" index of this invoice. Each newly settled invoice will
+    increment this index making it monotonically increasing. Callers to the
+    SubscribeInvoices call can use this to instantly get notified of all
+    settled invoices with an settle_index greater than this one.
+    */
+    uint64 settle_index = 17 [json_name = "settle_index"];
+
+    /// Deprecated, use amt_paid_sat or amt_paid_msat.
+    int64 amt_paid = 18 [json_name = "amt_paid", deprecated = true];
+
+    /**
+    The amount that was accepted for this invoice, in satoshis. This will ONLY
+    be set if this invoice has been settled. We provide this field as if the
+    invoice was created with a zero value, then we need to record what amount
+    was ultimately accepted. Additionally, it's possible that the sender paid
+    MORE that was specified in the original invoice. So we'll record that here
+    as well.
+    */
+    int64 amt_paid_sat = 19 [json_name = "amt_paid_sat"];
+
+    /**
+    The amount that was accepted for this invoice, in millisatoshis. This will
+    ONLY be set if this invoice has been settled. We provide this field as if
+    the invoice was created with a zero value, then we need to record what
+    amount was ultimately accepted. Additionally, it's possible that the sender
+    paid MORE that was specified in the original invoice. So we'll record that
+    here as well.
+    */
+    int64 amt_paid_msat = 20 [json_name = "amt_paid_msat"];
+}
+message AddInvoiceResponse {
+    bytes r_hash = 1 [json_name = "r_hash"];
+
+    /**
+    A bare-bones invoice for a payment within the Lightning Network.  With the
+    details of the invoice, the sender has all the data necessary to send a
+    payment to the recipient.
+    */
+    string payment_request = 2 [json_name = "payment_request"];
+
+    /**
+    The "add" index of this invoice. Each newly created invoice will increment
+    this index making it monotonically increasing. Callers to the
+    SubscribeInvoices call can use this to instantly get notified of all added
+    invoices with an add_index greater than this one.
+    */
+    uint64 add_index = 16 [json_name = "add_index"];
+}
