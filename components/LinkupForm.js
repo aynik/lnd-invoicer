@@ -1,6 +1,7 @@
 import React from 'react'
 import { compose, withHandlers, withState } from 'recompose'
 import { Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Dropzone from 'react-dropzone'
 import AliasChecker from '../controllers/AliasChecker'
 
@@ -36,7 +37,7 @@ const fileLabelStyle = {
   position: 'absolute',
   zIndex: 1,
   marginLeft: '115px',
-  width: '150px',
+  minWidth: '150px',
   lineHeight: '26px',
   color: '#000'
 }
@@ -88,15 +89,15 @@ export default withFileState(({
             <Label for='macaroon'>invoice.macaroon</Label>
             <Input type='hidden' name='macaroon' id='macaroon' 
               value={macaroonHex || macaroon} />
+            <p style={{...fileLabelStyle, color: cert ? '#28a745' : '#000'}}>{
+              macaroonHex || macaroon ? 'Macaroon loaded' : 'No file chosen' 
+            }</p>
             <Dropzone onDrop={onMacaroonChange} multiple={false}
               style={fileInputStyle}
               inputProps={{style: fileInputStyle }}>
-                <p style={{...fileLabelStyle, color: cert ? '#28a745' : '#000'}}>{
-                  macaroonHex || macaroon ? 'Macaroon loaded' : 'No file chosen' 
-                }</p>
             </Dropzone>
             <FormText color='muted'>
-              <mark>invoice.macaroon</mark> is required so we can serve new invoices directly from your
+              Required to serve new invoices directly from your
               node without having to keep your money in our node.
             </FormText>
             <br />
@@ -110,12 +111,17 @@ export default withFileState(({
                 }</p>
             </Dropzone>
             <FormText color='muted'>
-              <mark>tls.cert</mark> is required so we can connect to your node securely and prevent
+              Required to connect to your node securely and prevent
               middlemen from sniffing information.
             </FormText>
           </FormGroup>
           <br />
-          <Button color='primary' type='submit'>Save</Button>
+          <Button color='primary' type='submit'>
+            <FontAwesomeIcon
+              icon='save'
+              className='mr-2 pointer' />
+            Save
+          </Button>
         </Form>
       </Col>
     </Row>

@@ -2,6 +2,7 @@ import React from 'react'
 import Router from 'next/router'
 import { NextAuth } from 'next-auth/client'
 import { NavItem, NavLink, Button } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SigninModal from '../components/SigninModal'
 import SignoutForm from '../components/SignoutForm'
 
@@ -65,6 +66,9 @@ export default class extends React.Component {
           <Button
             color='primary'
             onClick={() => this.toggleSigninModalOpen()}>
+              <FontAwesomeIcon
+                icon='sign-in-alt'
+                className='mr-2 pointer' />
               Sign up / Sign in
           </Button>
           <SigninModal

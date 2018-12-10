@@ -14,11 +14,12 @@ export default () => (
       <Col>
         <span>This site is running </span>
         <a href='https://github.com/aynik/lnd-invoicer'>
-          <GitHub color={process.env.APP_COLORS_MUTED} className='mr-2 align-text-top' />
-          <span className='font-weight-bold'>{pkg.name}@{pkg.version}</span>
+          <GitHub color={process.env.APP_COLORS_MUTED}
+            className='ml-1 mr-1 align-text-bottom' />
+          <span>{pkg.name}@{pkg.version}</span>
         </a>
-        <span> using </span><span className='font-weight-bold'>next@{nextPkg.version}</span>
-        <span> and </span><span className='font-weight-bold'>react@{reactPkg.version}</span>
+        <span> using </span><span>next@{nextPkg.version}</span>
+        <span> and </span><span>react@{reactPkg.version}</span>
       </Col>
     </Row>
   </footer>

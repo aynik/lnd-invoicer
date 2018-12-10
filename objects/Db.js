@@ -16,8 +16,10 @@ if (!userSchema.options.toObject)
   userSchema.options.toObject = {}
 
 userSchema.options.toObject.transform = function (doc, ret) {
-  ret.macaroon = doc.macaroon.toString('hex')
-  ret.cert = doc.cert.toString('hex')
+  if (doc.macaroon)
+    ret.macaroon = doc.macaroon.toString('hex')
+  if (doc.cert)
+    ret.cert = doc.cert.toString('hex')
   return ret
 }
 

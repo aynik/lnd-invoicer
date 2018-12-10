@@ -2,6 +2,7 @@ import React from 'react'
 import Router from 'next/router'
 import { NextAuth } from 'next-auth/client'
 import { NavItem, NavLink, Button } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Layout from '../components/Layout'
 import Header from '../components/Header'
 import Authentication from '../containers/Authentication'
@@ -27,7 +28,12 @@ export default class extends React.Component {
         <Header>
           { this.props.user.alias &&
             <NavItem>
-              <NavLink href={`${this.props.user.alias}`}>My link</NavLink>
+              <NavLink href={`${this.props.user.alias}`}>
+                <FontAwesomeIcon
+                  icon='link'
+                  className='mr-2 pointer' />
+                My link
+              </NavLink>
             </NavItem> }
           <Authentication
             csrfToken={this.props.csrfToken}

@@ -14,7 +14,7 @@ export default ({ children }) => (
   <Row>
     <Col>
       <Navbar expand='xs'>
-	<NavbarBrand href='/'>
+	<NavbarBrand href='/'> 
           <Logo />
           {process.env.APP_DOMAIN}
         </NavbarBrand>
