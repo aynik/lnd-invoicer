@@ -15,7 +15,7 @@ class Grpc {
 
   async connect (protoFileName, address, macaroon, cert) {
     const metadata = new Metadata()
-    metadata.add('macaroon', macaroon)
+    metadata.add('macaroon', macaroon.toString('hex'))
     const macaroonCreds = createFromMetadataGenerator((_, done) => {
       done(null, metadata)
     })

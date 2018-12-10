@@ -57,20 +57,24 @@ export default withAmountState(({
               </FormGroup>
             </Form>
           </CardBody>
+          { amount > 0 && (
+            <p>{amount} SAT</p>
+          )}
           { requested && (
             <React.Fragment>
               <CardImg top width='100%'
-                src={'https://chart.apis.google.com/chart?cht=qr&chs=245x245&chl=' +
+                src={'https://chart.apis.google.com/chart?cht=qr&chs=200x200&chl=' +
                   `lightning:${payReq}`} alt='Card image cap' />
               <FormGroup>
+                <Button tag='a' href={`lightning:${payReq}`}
+                  color='primary' className='mr-4'>
+                    Pay with wallet
+                </Button>
                 <ClipboardStorer text={payReq}>
                   Copy to clipboard
                 </ClipboardStorer>
               </FormGroup>
             </React.Fragment>
-          )}
-          { amount > 0 && (
-            <p>Amount: {amount} SAT</p>
           )}
         </Card>
       </Col>

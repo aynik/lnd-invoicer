@@ -91,9 +91,7 @@ nextApp.prepare().then(async () => {
     const user = await db.findUserBy({ alias: req.params.alias })
     if (!user) return nextHandler(req, res)
     const ln = await grpc.connect('lnrpc.proto', 
-      user.address,
-      user.macaroon.buffer.toString('hex'),
-      user.cert.buffer)
+      user.address, user.macaroon, user.cert)
     const payReq = await new Promise((resolve, reject) => {
       ln.addInvoice({
         memo: `Payment sent through ${process.env.APP_DOMAIN}`,
