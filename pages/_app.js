@@ -8,7 +8,8 @@ import {
   faSignOutAlt,
   faLink,
   faSave,
-  faEdit
+  faEdit,
+  faCheckCircle
 } from '@fortawesome/free-solid-svg-icons'
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
@@ -19,7 +20,8 @@ fontawesome.add(
   faSignOutAlt,
   faLink,
   faSave,
-  faEdit
+  faEdit,
+  faCheckCircle
 )
 
 export default class MyApp extends App {

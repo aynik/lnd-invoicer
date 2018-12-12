@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Layout from '../components/Layout'
 import Header from '../components/Header'
 import Authentication from '../containers/Authentication'
-import LinkupForm from '../components/LinkupForm'
+import LinkupForm from '../containers/LinkupForm'
 import Footer from '../components/Footer'
 
 export default class extends React.Component {
