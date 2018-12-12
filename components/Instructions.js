@@ -19,8 +19,10 @@ export default () => (
             <CardTitle className='display-5 text-primary'>1.</CardTitle>
           </CardBody>
           <CardBody className='pl-0 col col-11'>
-            <CardTitle className='display-6'>Login using your email.</CardTitle>
-            <CardSubtitle>No more social media crap.</CardSubtitle>
+            <CardTitle className='display-6'>Sign up using your email.</CardTitle>
+            <CardSubtitle>
+              It will be used to create your profile and to authenticate you in the future.
+            </CardSubtitle>
           </CardBody>
         </Card>
       </Col>
