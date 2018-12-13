@@ -54,14 +54,14 @@ export default class extends React.Component {
   render () {
     return (
       this.props.user ?
-        <React.Fragment>
+        <>
           {this.props.children} 
           <NavItem>
             <SignoutForm
               csrfToken={this.props.csrfToken}
               onSubmit={(event) => this.submitSignoutForm(event)} /> 
           </NavItem>
-        </React.Fragment> :
+        </> :
         <NavItem>
           <Button
             color='primary'

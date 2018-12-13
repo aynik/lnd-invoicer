@@ -9,7 +9,9 @@ import {
   faLink,
   faSave,
   faEdit,
-  faCheckCircle
+  faCheckCircle,
+  faSpinner,
+  faQrcode
 } from '@fortawesome/free-solid-svg-icons'
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
@@ -21,7 +23,9 @@ fontawesome.add(
   faLink,
   faSave,
   faEdit,
-  faCheckCircle
+  faCheckCircle,
+  faSpinner,
+  faQrcode
 )
 
 export default class MyApp extends App {

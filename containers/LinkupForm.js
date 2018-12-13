@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { compose, withHandlers, withState } from 'recompose'
 import {
   Row,
   Col,
@@ -130,7 +129,7 @@ export default class extends React.Component {
       certInfo
     } = this.state
     return (
-      <React.Fragment>
+      <>
         <Row className='mt-4 mb-4'>
           <Col className='col-xl-8 offset-xl-2 col-10 offset-1'>
             <h1 className='display-5'>Configure your payment link</h1>
@@ -213,7 +212,7 @@ export default class extends React.Component {
             </Form>
           </Col>
         </Row>
-      </React.Fragment>
+      </>
     )
   }
 }

@@ -21,7 +21,7 @@ export default class extends React.Component {
   render() {
     // Provide a link for clients without JavaScript as a fallback.
     return (
-      <React.Fragment>
+      <>
       <style jsx global>{`
           body{ 
             background-color: #fff;
@@ -78,7 +78,7 @@ export default class extends React.Component {
           Click here to continue
         </noscript>
         </a>          
-      </React.Fragment>
+      </>
     )
   }
 }

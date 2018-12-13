@@ -17,12 +17,7 @@ export default class MyDocument extends Document {
           <link 
             href='https://fonts.googleapis.com/css?family=Montserrat|Open+Sans'
             rel='stylesheet' />
-          <link 
-            rel='stylesheet'
-            href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
-            integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm'
-            crossOrigin='anonymous' />
-          <style>{`
+	  <style>{`
             * {
               font-family: Open Sans, sans-serif;
               font-size: 14px;
@@ -59,12 +54,40 @@ export default class MyDocument extends Document {
               font-weight: 300;
               line-height: 1.2;
             }
-            .jumbotron,
+            .jumbotron {
+              background-color: #fff;
+            }
             .mark, mark {
               background-color: ${process.env.APP_COLORS_MARK};
             }
+            @-moz-keyframes spin {
+	      from { -moz-transform: rotate(0deg); }
+	      to { -moz-transform: rotate(360deg); }
+            }
+            @-webkit-keyframes spin {
+	      from { -webkit-transform: rotate(0deg); }
+	      to { -webkit-transform: rotate(360deg); }
+            }
+            @keyframes spin {
+	      from {transform:rotate(0deg);}
+	      to {transform:rotate(360deg);}
+            }
+            .spin {
+	      -webkit-animation-name: spin;
+	      -webkit-animation-duration: 2000ms;
+	      -webkit-animation-iteration-count: infinite;
+	      -webkit-animation-timing-function: linear;
+	      -moz-animation-name: spin;
+	      -moz-animation-duration: 2000ms;
+	      -moz-animation-iteration-count: infinite;
+	      -moz-animation-timing-function: linear;
+	      -ms-animation-name: spin;
+	      -ms-animation-duration: 2000ms;
+	      -ms-animation-iteration-count: infinite;
+	      -ms-animation-timing-function: linear;
+            }
           `}</style>
-        </Head>
+	</Head>
         <body>
           <Main />
           <NextScript />

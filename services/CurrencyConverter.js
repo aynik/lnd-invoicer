@@ -48,7 +48,7 @@ class Converter extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <FormGroup>
           <InputGroup>
             <InputGroupAddon addonType='prepend'>
@@ -69,7 +69,7 @@ class Converter extends Component {
             ))}
           </Input>
         </FormGroup>
-      </React.Fragment>
+      </>
     )
   }
 }
