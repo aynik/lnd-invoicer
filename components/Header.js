@@ -8,7 +8,9 @@ import {
   NavItem,
   Button
 } from 'reactstrap'
-import Logo from './Logo'
+import {
+  Logo
+} from './'
 
 export default ({ children }) => (
   <Row>

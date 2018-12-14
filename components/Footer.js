@@ -6,7 +6,9 @@ import {
   Row,
   Col,
 } from 'reactstrap'
-import GitHub from './GitHub'
+import {
+  GitHub
+} from './'
 
 export default () => (
   <footer className='pt-2 mb-4'>

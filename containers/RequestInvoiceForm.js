@@ -1,6 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome'
+import {
   Row,
   Col,
   Card,
@@ -8,40 +11,42 @@ import {
   CardText,
   CardBody,
   CardTitle,
-  CardSubtitle,
   Form,
   FormGroup,
   Button,
   Input
 } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import CurrencyConverter from '../services/CurrencyConverter'
-import ClipboardStorer from '../services/ClipboardStorer'
+import {
+  CurrencyConverter,
+  ClipboardStorer
+} from '../containers'
 
 const capitalize = (str) => str ? str[0].toUpperCase() + str.slice(1) : ''
 
 export default class extends React.Component {
-  constructor (props) {
-    super(props)
-    this.readyStates = Object.freeze({
-      IDLE: Symbol('idle'),
-      LOADING: Symbol('loading'),
-      WAITING: Symbol('waiting')
-    })
-    this.state = {
-      amount: 0,
-      payReq: null,
-      readyState: this.readyStates.IDLE,
-      waitingSecs: 10
-    }
+  readyStates = Object.freeze({
+    IDLE: Symbol('idle'),
+    LOADING: Symbol('loading'),
+    WAITING: Symbol('waiting')
+  })
+
+  state = {
+    amount: 0,
+    payReq: null,
+    readyState: this.readyStates.IDLE,
+    waitingSecs: 10
   }
 
-  isReadyState (symbol) {
+  isReadyState = (symbol) => {
     const { readyState } = this.state
     return readyState === symbol
   }
 
-  async submitRequestInvoice() {
+  setAmount = (amount) => (
+    this.setState({ amount })
+  )
+
+  submitRequestInvoice = async () => {
     const { alias } = this.props
     const { amount } = this.state
     const { IDLE, LOADING, WAITING } = this.readyStates
@@ -78,7 +83,7 @@ export default class extends React.Component {
   }
 
   render () {
-    const { alias, onSubmit } = this.props
+    const { alias } = this.props
     const { amount, payReq, waitingSecs } = this.state
     const { IDLE, LOADING, WAITING } = this.readyStates
     return (
@@ -94,13 +99,11 @@ export default class extends React.Component {
               <CardBody>
                 <CardTitle>Request an invoice</CardTitle>
                 <Form inline className='justify-content-center mb-2'>
-                  <CurrencyConverter onChange={
-                    (result) => this.setState({ amount: result })
-                  } />
+                  <CurrencyConverter onChange={this.setAmount} />
                   <FormGroup>
                     <Button className='ml-3'
                       color={this.isReadyState(IDLE) ? 'primary' : 'muted'}
-                      onClick={async () => await this.submitRequestInvoice()}>
+                      onClick={this.submitRequestInvoice}>
                       { this.isReadyState(IDLE) ?
                         <>
                           <FontAwesomeIcon

@@ -1,5 +1,14 @@
 import React from 'react'
-import { Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
+import {
+  Row,
+  Col,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText
+} from 'reactstrap'
 
 export default ({ csrfToken, onSubmit }) => (
   <Row className='mb-4'>

@@ -1,31 +1,36 @@
 import React from 'react'
 import Router from 'next/router'
 import { NextAuth } from 'next-auth/client'
-import { NavItem, NavLink, Button } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import SigninModal from '../components/SigninModal'
-import SignoutForm from '../components/SignoutForm'
+import {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome'
+import {
+  NavItem,
+  NavLink,
+  Button
+} from 'reactstrap'
+import {
+  SigninModal,
+  SignoutForm
+} from '../components'
 
 export default class extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isSigninModalOpen: false,
-      isSigninModalError: null
-    }
+  state = {
+    isSigninModalOpen: false,
+    isSigninModalError: null
   }
 
-  toggleSigninModalOpen () {
+  toggleSigninModalOpen = () => (
     this.setState({
       isSigninModalOpen: !this.state.isSigninModalOpen,
-      loginModalError: null 
+      loginModalError: null
     })
-  }
+  )
 
-  submitSigninModalForm (event) {
+  submitSigninModalForm = (event) => {
     event.preventDefault()
     const email = event.target.email.value
-    
+
     if (!email) return
 
     NextAuth.signin(email)
@@ -40,7 +45,7 @@ export default class extends React.Component {
       })
   }
 
-  submitSignoutForm (event) {
+  submitSignoutForm = (event) => {
     event.preventDefault()
     NextAuth.signout()
       .then(() => {
@@ -55,17 +60,17 @@ export default class extends React.Component {
     return (
       this.props.user ?
         <>
-          {this.props.children} 
+          {this.props.children}
           <NavItem>
             <SignoutForm
               csrfToken={this.props.csrfToken}
-              onSubmit={(event) => this.submitSignoutForm(event)} /> 
+              onSubmit={this.submitSignoutForm} />
           </NavItem>
         </> :
         <NavItem>
           <Button
             color='primary'
-            onClick={() => this.toggleSigninModalOpen()}>
+            onClick={toggleSigninModalOpen}>
               <FontAwesomeIcon
                 icon='sign-in-alt'
                 className='mr-2 pointer' />
@@ -76,8 +81,8 @@ export default class extends React.Component {
             csrfToken={this.props.csrfToken}
             isOpen={this.state.isSigninModalOpen}
             isSubmitting={this.state.isSigninModalSubmitting}
-            onToggleOpen={() => this.toggleSigninModalOpen()}
-            onSubmit={(event) => this.submitSigninModalForm(event)} />
+            onToggleOpen={this.toggleSigninModalOpen}
+            onSubmit={this.submitSigninModalForm} />
         </NavItem>
     )
   }

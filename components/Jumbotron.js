@@ -1,5 +1,8 @@
 import React from 'react'
-import { Jumbotron, Button } from 'reactstrap'
+import {
+  Jumbotron,
+  Button
+} from 'reactstrap'
 
 export default () => (
   <Jumbotron>

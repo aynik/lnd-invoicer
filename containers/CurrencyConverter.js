@@ -1,8 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
-import { FormGroup, Label, InputGroup, InputGroupAddon, Input } from 'reactstrap'
+import {
+  FormGroup,
+  Label,
+  InputGroup,
+  InputGroupAddon,
+  Input
+} from 'reactstrap'
 
-class Converter extends Component {
+export default class extends React.Component {
   state = {
     result: null,
     fromCurrency: 'USD',
@@ -73,5 +79,3 @@ class Converter extends Component {
     )
   }
 }
-
-export default Converter

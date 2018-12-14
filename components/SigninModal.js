@@ -1,7 +1,13 @@
 import React from 'react'
-import SigninInstructions from '../components/SigninInstructions'
-import SigninForm from '../components/SigninForm'
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
+import {
+  Modal,
+  ModalHeader,
+  ModalBody
+} from 'reactstrap'
+import {
+  SigninInstructions,
+  SigninForm
+} from '../components'
 
 export default ({ isOpen, csrfToken, onToggleOpen, onSubmit }) => (
   <Modal isOpen={isOpen} toggle={onToggleOpen}>

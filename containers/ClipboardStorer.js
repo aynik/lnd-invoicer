@@ -1,8 +1,12 @@
 import React from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { Button } from 'reactstrap'
+import {
+  CopyToClipboard
+} from 'react-copy-to-clipboard'
+import {
+  Button
+} from 'reactstrap'
 
-export default class ClipboardStorer extends React.Component {
+export default class extends React.Component {
   state = {
     copied: false
   }

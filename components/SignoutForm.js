@@ -1,6 +1,11 @@
 import React from 'react'
-import { Button, Input } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome'
+import {
+  Button,
+  Input
+} from 'reactstrap'
 
 export default ({ csrfToken, onSubmit }) => (
   <form method='post' action='/auth/signout' onSubmit={onSubmit}>

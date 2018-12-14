@@ -1,5 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Dropzone from 'react-dropzone'
+import {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome'
 import {
   Row,
   Col,
@@ -11,11 +15,9 @@ import {
   FormText,
   FormFeedback
 } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Dropzone from 'react-dropzone'
 
-const buf2hex = (buffer) => ( 
-  Array.prototype.map.call(new Uint8Array(buffer), 
+const buf2hex = (buffer) => (
+  Array.prototype.map.call(new Uint8Array(buffer),
     x => ('00' + x.toString(16)).slice(-2)).join('')
 )
 
@@ -44,38 +46,35 @@ const fileInputStyle = {
 }
 
 export default class extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      email: props.email,
-      alias: props.alias,
-      address: props.address,
-      macaroon: props.macaroon,
-      cert: props.cert,
-      csrfToken: props.csrfToken,
-      macaroonHex: '',
-      macaroonInfo: props.macaroon ?
-        'Macaroon file already present' :
-        'Select or drag invoice.macaroon here',
-      certHex: '',
-      certInfo: props.cert ?
-        'Cert file already present' :
-        'Select or drag tls.cert here',
-      aliasValid: !!props.alias,
-      addressValid: !!props.address
-    }
+  state = {
+    email: this.props.email,
+    alias: this.props.alias,
+    address: this.props.address,
+    macaroon: this.props.macaroon,
+    cert: this.props.cert,
+    csrfToken: this.props.csrfToken,
+    macaroonHex: '',
+    macaroonInfo: this.props.macaroon ?
+      'Macaroon file already present' :
+      'Select or drag invoice.macaroon here',
+    certHex: '',
+    certInfo: this.props.cert ?
+      'Cert file already present' :
+      'Select or drag tls.cert here',
+    aliasValid: !!this.props.alias,
+    addressValid: !!this.props.address
   }
 
-  checkAliasValidity ({ target }) { 
+  checkAliasValidity = ({ target }) => {
     const { valid } = target.validity
     const { validationMessage } = target
-    this.setState({ aliasValid: valid }) 
+    this.setState({ aliasValid: valid })
     if (valid) {
       fetch(`/${target.value}`, {
         method: 'HEAD'
       }).then((res) => {
         if (res.status !== 404 && target.value !== this.state.alias) {
-          this.setState({ aliasValid: false }) 
+          this.setState({ aliasValid: false })
           target.nextSibling.innerHTML = 'Alias was already taken.'
         }
       })
@@ -84,16 +83,16 @@ export default class extends React.Component {
     }
   }
 
-  checkAddressValidity ({ target }) {
+  checkAddressValidity = ({ target }) => {
     const { valid } = target.validity
     const { validationMessage } = target
-    this.setState({ addressValid: valid }) 
+    this.setState({ addressValid: valid })
     if (!valid) {
       target.nextSibling.innerHTML = validationMessage
     }
   }
 
-  onMacaroonChange (files) {
+  onMacaroonChange = (files) => {
     filesToHex(files, (macaroonFile, macaroonHex) => {
       this.setState({
         macaroonInfo: `Ready to upload ${macaroonFile}`,
@@ -102,7 +101,7 @@ export default class extends React.Component {
     })
   }
 
-  onCertChange (files) {
+  onCertChange = (files) => {
     filesToHex(files, (certFile, certHex) => {
       this.setState({
         macaroonInfo: `Ready to upload ${certFile}`,
@@ -145,20 +144,20 @@ export default class extends React.Component {
               </FormGroup>
               <FormGroup>
                 <Label for='alias'>Alias</Label>
-                <Input type='text' name='alias' id='alias' 
+                <Input type='text' name='alias' id='alias'
                   required pattern='[a-zA-Z0-9-_]+'
                   placeholder='my-alias' defaultValue={alias}
                   invalid={!this.state.aliasValid}
-                  onBlur={(event) => this.checkAliasValidity(event)} />
+                  onBlur={this.checkAliasValidity} />
                 <FormFeedback />
               </FormGroup>
               <FormGroup>
                 <Label for='address'>Node address (host:port)</Label>
-                <Input type='text' name='address' id='address' 
+                <Input type='text' name='address' id='address'
                   required pattern='[^:]+:[0-9]{1,5}'
                   placeholder='node.provider.tld:9001' defaultValue={address}
                   invalid={!this.state.addressValid}
-                  onBlur={(event) => this.checkAddressValidity(event)} />
+                  onBlur={this.checkAddressValidity} />
                 <FormFeedback />
               </FormGroup>
               <FormGroup>
@@ -169,11 +168,11 @@ export default class extends React.Component {
                         icon='check-circle'
                         className='mr-2' />
                     </span> }
-                  Invoice macaroon 
+                  Invoice macaroon
                 </Label>
-                <Input type='hidden' name='macaroon' id='macaroon' 
+                <Input type='hidden' name='macaroon' id='macaroon'
                   value={macaroonHex || macaroon} />
-                <Dropzone onDrop={(files) => this.onMacaroonChange(files)} multiple={false}
+                <Dropzone onDrop={this.onMacaroonChange} multiple={false}
                   style={fileInputStyle}>
                   <p>{macaroonInfo}</p>
                 </Dropzone>
@@ -190,10 +189,10 @@ export default class extends React.Component {
                         icon='check-circle'
                         className='mr-2' />
                     </span> }
-                  TLS Certificate 
+                  TLS Certificate
                 </Label>
                 <Input type='hidden' name='cert' id='cert' value={certHex || cert} />
-                <Dropzone onDrop={(files) => this.onCertChange(files)} multiple={false} 
+                <Dropzone onDrop={this.onCertChange} multiple={false}
                   style={fileInputStyle}>
                   <p>{certInfo}</p>
                 </Dropzone>
