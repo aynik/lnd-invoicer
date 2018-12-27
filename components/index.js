@@ -1,5 +1,6 @@
 // @create-index
 
+export { default as BgArt } from './BgArt.js'
 export { default as Footer } from './Footer.js'
 export { default as GitHub } from './GitHub.js'
 export { default as Header } from './Header.js'

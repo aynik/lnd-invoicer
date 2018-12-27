@@ -104,7 +104,7 @@ export default class extends React.Component {
   onCertChange = (files) => {
     filesToHex(files, (certFile, certHex) => {
       this.setState({
-        macaroonInfo: `Ready to upload ${certFile}`,
+        certInfo: `Ready to upload ${certFile}`,
         certHex
       })
     })

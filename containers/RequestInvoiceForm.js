@@ -21,7 +21,12 @@ import {
   ClipboardStorer
 } from '../containers'
 
-const capitalize = (str) => str ? str[0].toUpperCase() + str.slice(1) : ''
+const capitalize = (str) => (
+  str ?
+    str.split('-').map((part) => (
+      part[0].toUpperCase() + part.slice(1)
+    )).join(' ') : ''
+)
 
 export default class extends React.Component {
   readyStates = Object.freeze({
@@ -90,14 +95,14 @@ export default class extends React.Component {
       <>
         <Row className='mt-4 mb-4'>
           <Col className='text-center pl-4 pr-4' style={{margin: '0 auto'}}>
-            <h1 className='display-5'>{capitalize(alias)}'s payment link</h1>
+            <h1 className='display-5'>Send money to {capitalize(alias)}</h1>
           </Col>
         </Row>
         <Row className='mb-4'>
           <Col className='text-center' style={{maxWidth: '340px', margin: '0 auto'}}>
             <Card style={{ border: 'none' }}>
               <CardBody>
-                <CardTitle>Request an invoice</CardTitle>
+                <CardTitle>Request an invoice for</CardTitle>
                 <Form inline className='justify-content-center mb-2'>
                   <CurrencyConverter onChange={this.setAmount} />
                   <FormGroup>

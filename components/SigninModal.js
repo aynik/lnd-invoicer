@@ -10,7 +10,7 @@ import {
 } from '../components'
 
 export default ({ isOpen, csrfToken, onToggleOpen, onSubmit }) => (
-  <Modal isOpen={isOpen} toggle={onToggleOpen}>
+  <Modal isOpen={isOpen} toggle={onToggleOpen} autoFocus={false}>
     <ModalHeader toggle={onToggleOpen}>Sign in with your email</ModalHeader>
     <ModalBody>
       <SigninInstructions />

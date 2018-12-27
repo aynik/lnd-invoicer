@@ -70,7 +70,7 @@ export default class extends React.Component {
         <NavItem>
           <Button
             color='primary'
-            onClick={toggleSigninModalOpen}>
+            onClick={this.toggleSigninModalOpen}>
               <FontAwesomeIcon
                 icon='sign-in-alt'
                 className='mr-2 pointer' />

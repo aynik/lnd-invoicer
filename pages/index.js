@@ -1,14 +1,26 @@
 import React from 'react'
 import Router from 'next/router'
-import { NextAuth } from 'next-auth/client'
-import { NavItem, NavLink } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Authentication from '../containers/Authentication'
-import Layout from '../components/Layout'
-import Header from '../components/Header'
-import Jumbotron from '../components/Jumbotron'
-import Instructions from '../components/Instructions'
-import Footer from '../components/Footer'
+import {
+  NextAuth
+} from 'next-auth/client'
+import {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome'
+import {
+  NavItem,
+  NavLink,
+  Button
+} from 'reactstrap'
+import {
+  Layout,
+  Header,
+  Jumbotron,
+  Instructions,
+  Footer
+} from '../components'
+import {
+  Authentication,
+} from '../containers'
 
 export default class extends React.Component {
   static async getInitialProps ({ req, query: {}}) {
