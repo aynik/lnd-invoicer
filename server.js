@@ -1,4 +1,5 @@
 const url = require('url')
+const dotenvLoad = require('dotenv-load')
 const express = require('express')
 const bodyParser = require('body-parser')
 const { check, validationResult } = require('express-validator/check')
@@ -7,6 +8,8 @@ const { createServer } = require('http')
 const expressSession = require('express-session')
 const SessionMongoStore = require('connect-mongo')(expressSession)
 const nextAuth = require('next-auth')
+
+dotenvLoad()
 
 process.env.PORT = parseInt(process.env.PORT, 10) || 4000
 process.env.NODE_ENV = process.env.NODE_ENV || 'development' 
