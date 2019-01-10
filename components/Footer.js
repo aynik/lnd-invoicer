@@ -1,6 +1,6 @@
 import pkg from '../package.json'
-import nextPkg from '../node_modules/next/package.json'
-import reactPkg from '../node_modules/react/package.json'
+import { version as nextVersion } from '../node_modules/next/package.json'
+import { version as reactVersion } from '../node_modules/react/package.json'
 import React from 'react'
 import {
   Row,
@@ -20,8 +20,8 @@ export default () => (
             className='ml-1 mr-1 align-text-bottom' />
           <span>{pkg.name}@{pkg.version}</span>
         </a>
-        <span> using </span><span>next@{nextPkg.version}</span>
-        <span> and </span><span>react@{reactPkg.version}</span>
+        <span> using </span><span>next@{nextVersion}</span>
+        <span> and </span><span>react@{reactVersion}</span>
       </Col>
     </Row>
   </footer>
