@@ -1,8 +1,12 @@
+const dotenvLoad = require('dotenv-load')
 const nextEnv = require('next-env')
-const withCSS = require('@zeit/next-css')
+const nextCSS = require('@zeit/next-css')
+const withPlugins = require('next-compose-plugins')
+
+dotenvLoad()
 
 const withNextEnv = nextEnv({
   publicPrefix: 'APP_'
 })
- 
-module.exports = withNextEnv(withCSS())
+
+module.exports = withNextEnv(nextCSS())
