@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const { check, validationResult } = require('express-validator/check')
 const next = require('next')
 const { createServer } = require('http')
-const sslRedirect = require('heroku-ssl-redirect')
 const expressSession = require('express-session')
 const SessionMongoStore = require('connect-mongo')(expressSession)
 const nextAuth = require('next-auth')
@@ -28,8 +27,6 @@ const nextApp = next({
 nextApp.prepare().then(async () => {
   const app = express()
   const server = createServer(app)
-
-  app.use(sslRedirect())
 
   const sessionStore = new SessionMongoStore({
     mongooseConnection: db.mongoose.connection,
